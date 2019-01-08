@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
-public class Graphic {
+class Graphic {
     Frame f = new Frame("Connect 5");
 }
 
@@ -41,6 +41,7 @@ class Panel extends JPanel {
 
         for(int x = 50; x < 450; x += 50) {
             for(int y = 50;  y < 450; y += 50) {
+                g.drawRect(x, y, 50, 50);
             }
         }
     }
