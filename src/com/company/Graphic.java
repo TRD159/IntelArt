@@ -2,6 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 class Graphic {
     Frame f = new Frame("Connect 5");
@@ -71,7 +72,7 @@ abstract class Player{
 
     @Override
     public String toString() {
-        return "("+name + " as " + letter + " )";
+        return "("+name + " as " + letter + ")";
     }
 }
 
@@ -82,12 +83,27 @@ class HumanPlayer extends Player {
 
     @Override
     public Move getMove(Board board) {
-        return null;
+        Scanner s = new Scanner(System.in);
+
+        int z, x;
+        while(true) {
+            System.out.println("Where will you drop your piece?\nEnter the row and column of the space where you will move.");
+
+            z = s.nextInt() - 1;
+            x = s.nextInt() - 1;
+
+            if((z >= 0 && z <= 7) && board.getBoard()[z][6][x] == '-')
+                break;
+            else
+                System.out.println("That move isn't valid!");
+        }
+
+        return new Move(x, z);
     }
 
     @Override
     public Player freshCopy() {
-        return null;
+        return new HumanPlayer(getName(), getLetter());
     }
 }
 
@@ -102,12 +118,12 @@ class RandomComputer extends Player {
 
     @Override
     public Player freshCopy() {
-        return null;
+        return new RandomComputer(getName(), getLetter());
     }
 }
 
 class Location {
-    int x, y , z;
+    int x, y, z;
 
     public Location(int x, int y, int z) {
         this.x = x;
@@ -145,15 +161,8 @@ class Board {
 
     public Board() {
         board = new char[8][7][8];
-        for (int x = 0; x < 8; x++) {
-            for(int y = 0; y < 7; y++) {
-                for(int z = 0; z < 8; z++) {
-                    board[z][y][x] = EMPTY;
-                }
-            }
-        }
+        reset();
 
-        winner = PLAYING;
     }
 
     public char[][][] getBoard() {
@@ -165,6 +174,23 @@ class Board {
     }
 
     public boolean makeMove(Move move, char p) {
+        int x = move.getCol();
+        int y = 0;
+        int z = move.getRow();
+
+        falseCheck :
+        {
+            for (; y < 7; y++) {
+                if (board[z][y][x] == EMPTY) {
+                    break falseCheck;
+                }
+            }
+
+            return false;
+        }
+
+        Location l = new Location(x, y, z);
+        setLocation(l, p);
         return true;
     }
 
@@ -172,9 +198,14 @@ class Board {
         board[l.getZ()][l.getY()][l.getX()]=p;
     }
 
-    public char getLocation() {
-        return ' ' ;
+    public char getLocation(Location l) {
+        return board[l.z][l.y][l.x];
     }
+
+    public char getLocation(int x, int y, int z) {
+        return board[z][y][x];
+    }
+
 
     public char getWinner(){
         return winner;
@@ -185,7 +216,15 @@ class Board {
     }
 
     public void reset() {
+        for (int x = 0; x < 8; x++) {
+            for(int y = 0; y < 7; y++) {
+                for(int z = 0; z < 8; z++) {
+                    board[z][y][x] = EMPTY;
+                }
+            }
+        }
 
+        winner = PLAYING;
     }
 
     public void draw() {
