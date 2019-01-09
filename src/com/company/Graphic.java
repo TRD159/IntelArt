@@ -169,7 +169,7 @@ class Board {
     }
 
     public void setLocation(Location l, char p) {
-
+        board[l.getZ()][l.getY()][l.getX()]=p;
     }
 
     public char getLocation() {
