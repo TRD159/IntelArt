@@ -36,7 +36,7 @@ class Panel extends JPanel {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.BLACK);
+        /*g.setColor(Color.BLACK);
         g.fillRect(0, 0, 500, 500);
 
         g.setColor(Color.WHITE);
@@ -45,7 +45,9 @@ class Panel extends JPanel {
             for(int y = 50;  y < 450; y += 50) {
                 g.drawRect(x, y, 50, 50);
             }
-        }
+        }*/
+        Board b=new Board();
+        b.draw(g);
     }
 }
 
@@ -212,7 +214,10 @@ class Board {
     }
 
     public boolean isFull(Move m) {
-        return false;
+        if(board[6][m.getCol()][m.getRow()]==EMPTY) {//Not sure if row 6 is topmost or row 0-VK
+            return false;
+        }
+        return true;
     }
 
     public void reset() {
@@ -227,8 +232,29 @@ class Board {
         winner = PLAYING;
     }
 
-    public void draw() {
+    public void draw(Graphics g) {//have to use draw to draw the board-VK
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, 500, 500);
 
+        g.setColor(Color.WHITE);
+
+        for(int x = 50; x < 450; x += 50) {
+            for(int y = 50;  y < 450; y += 50) {
+                g.drawRect(x, y, 50, 50);
+            }
+        }
+        //This next part I am not sure if I got the for loop correct-VK;
+        for(int x=0; x<board.length; x++) {
+            for (int y=0;y<board[0].length;y++) {
+                for(int z=0;z<board[0][0].length;z++) {
+                    if (board[z][y][x] == RED) {
+                        g.setColor(Color.RED);
+                        g.fillRect(x * 50, y * 50, 50, 50);
+                    }
+                }
+            }
+        }
+        //////
     }
 }
 
