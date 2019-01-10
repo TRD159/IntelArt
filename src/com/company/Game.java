@@ -2,10 +2,29 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Scanner;
 
-class Graphic {
-    Frame f = new Frame("Connect 5");
+class Game {
+    Player pl1, pl2;
+    //This class is going to be the main class for Connect 5 specifically, as I may use this same project to do a few things in my free time.
+    Game(String p1, String p2) {
+        pl1 = new HumanPlayer(p1, 'R');
+        pl2 = new HumanPlayer(p1, 'B');
+        Frame f = new Frame("Connect 5");
+    }
+    Game(String p1) {
+        pl1 = new HumanPlayer(p1, 'R');
+        pl2 = new RandomComputer("Random Com", 'B');
+        Frame f = new Frame("Connect 5");
+    }
+    Game() {
+        pl1 = new RandomComputer("Com 1", 'R');
+        pl2 = new RandomComputer("Com 2", 'B');
+        Frame f = new Frame("Connect 5");
+    }
+
+    public static Board b = new Board();
 }
 
 
@@ -14,6 +33,7 @@ class Frame extends JFrame {
         super(title);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setPreferredSize(new Dimension(500, 500));
 
         pack();
@@ -27,12 +47,35 @@ class Frame extends JFrame {
         pack();
 
         setVisible(true);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.println("Click");
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+                System.out.println(e.getWheelRotation());
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+                System.out.println(e.getX());
+                System.out.println(e.getY());
+            }
+        });
     }
 }
 
 class Panel extends JPanel {
     Panel() {
         setSize(500, 500);
+
+
     }
 
     public void paint(Graphics g) {
@@ -46,8 +89,7 @@ class Panel extends JPanel {
                 g.drawRect(x, y, 50, 50);
             }
         }*/
-        Board b=new Board();
-        b.draw(g);
+        Game.b.draw(g);
     }
 }
 
@@ -175,10 +217,10 @@ class Board {
         this.board = board;
     }
 
-    public boolean makeMove(Move move, char p) {
+    public boolean makeMove(Move move, char p) { //This returns the location of the piece, not a boolean. It'll make win checks easier later on. -RK
         int x = move.getCol();
         int y = 0;
-        int z = move.getRow();
+        int z = move.getDepth();
 
         falseCheck :
         {
@@ -214,7 +256,10 @@ class Board {
     }
 
     public boolean isFull(Move m) {
-        if(board[6][m.getCol()][m.getRow()]==EMPTY) {//Not sure if row 6 is topmost or row 0-VK
+        /*Firstly, the way you access the array is wrong. You're going YXZ, but it's supposed to be ZYX.
+        * Also, 0 is the topmost
+        * */
+        if(board[m.getDepth()][0][m.getCol()]==EMPTY) {//Not sure if row 6 is topmost or row 0-VK
             return false;
         }
         return true;
@@ -224,7 +269,7 @@ class Board {
         for (int x = 0; x < 8; x++) {
             for(int y = 0; y < 7; y++) {
                 for(int z = 0; z < 8; z++) {
-                    board[z][y][x] = EMPTY;
+                    board[x][y][z] = EMPTY;
                 }
             }
         }
@@ -244,10 +289,14 @@ class Board {
             }
         }
         //This next part I am not sure if I got the for loop correct-VK;
+
+        /*You didn't. I don't think it would have made a difference, but I fixed it anyways.
+          Also, for the UI, we could have our program take in image files for the board and pieces and alter the opacity based on which layer the player wants to see. -RK
+        */
         for(int x=0; x<board.length; x++) {
             for (int y=0;y<board[0].length;y++) {
                 for(int z=0;z<board[0][0].length;z++) {
-                    if (board[z][y][x] == RED) {
+                    if (board[x][y][z] == RED) {
                         g.setColor(Color.RED);
                         g.fillRect(x * 50, y * 50, 50, 50);
                     }
@@ -259,16 +308,16 @@ class Board {
 }
 
 class Move {
-    private int row;
+    private int depth;
     private int col;
 
-    public Move(int col, int row) {
+    public Move(int col, int depth) {
         this.col=col;
-        this.row=row;
+        this.depth=depth;
     }
 
-    public int getRow() {
-        return row;
+    public int getDepth() {
+        return depth;
     }
 
     public int getCol() {
@@ -277,7 +326,7 @@ class Move {
 
     @Override
     public String toString() {
-        return "(" + row + ",  " + col + ")";
+        return "(" + depth + ",  " + col + ")";
     }
 }
 
