@@ -10,10 +10,7 @@ class Board {
 
     public Board() {
         board = new char[8][7][8];
-        reset();
-        board[4][4][4] = 'R';
-        board[6][6][6]='B';
-
+        reset() ;
         for (char[][] a: board
              ) {
             for (char[] r: a
@@ -104,7 +101,7 @@ class Board {
         g.setColor(Color.WHITE);
 
         for(int x = 50; x < 450; x += 50) {
-            for(int y = 50;  y < 450; y += 50) {
+            for(int y = 100;  y < 450; y += 50) {
                 g.drawRect(x, y, 50, 50);
             }
         }
@@ -118,10 +115,12 @@ class Board {
 
         for(int x=0; x<board.length; x++) {
 
-            Color gr = Color.white;
-            Color rg = Color.black;
+
 
             for (int y=0;y<board[0].length;y++) {
+
+                Color gr = Color.white;
+                Color rg = Color.black;
 
                 for(int z=0;z<board[0][0].length;z++) {
 
@@ -135,12 +134,15 @@ class Board {
                         g.setColor(Game.blueColor);
                         g.fillRect(z * 50, y * 50, 50, 50);
                     }
+                    g.setColor(gr);
+                    //g.fillRect(474, (int)(z * (500.0/8) - 1), 27, 65);
+                    g.fillRect((int)(z * (500.0/8) - 1), 0, 65, 27);
+                    if(PublicData.layerViewed != z)
+                        g.setColor(rg);
+                    //g.fillRect(475, (int)(z * (500.0/8)), 25, 63);
+                    g.fillRect((int)(z * (500.0/8)), 0, 63, 25);
                 }
-                g.setColor(gr);
-                g.fillRect(474, (int)(y * (500.0/7) - 1), 27, 74);
-                if(PublicData.layerViewed != y)
-                    g.setColor(rg);
-                g.fillRect(475, (int)(y * (500.0/7)), 25, 72);
+
 
             }
         }

@@ -6,35 +6,73 @@ import java.awt.*;
 import java.awt.event.*;
 import java.security.Key;
 
-class Panel extends JPanel {
+class Panel extends JPanel implements MouseListener, KeyListener {
     Panel() {
         setSize(500, 500);
 
-        addMouseListener(new MouseAdapter() {
+        super.setFocusable(true);
+        super.requestFocus();
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mouseClicked(e);
-                if(e.getX() >= 475 && e.getX() <= 500) {
-                    for(double yi = 0; yi < 7; yi++) {
-                        if(e.getY() >= yi * (500.0/7) && e.getY() < (yi + 1) * (500.0/7)) {
-                            PublicData.layerViewed = (int)yi;
-                            break;
-                        }
-                    }
+        addMouseListener(this);
+        addKeyListener(this);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(e.getX() >= 475 && e.getX() <= 500) {
+            for(double yi = 0; yi < 7; yi++) {
+                if(e.getY() >= yi * (500.0/7) && e.getY() < (yi + 1) * (500.0/7)) {
+                    PublicData.layerViewed = (int)yi;
+                    break;
                 }
-                Game.redColor=new Color(255,0,35*PublicData.layerViewed);
-                Game.blueColor=new Color(0,35*PublicData.layerViewed,255);
-                repaint();
             }
+        }
+        Game.redColor=new Color(255,0,35*PublicData.layerViewed);
+        Game.blueColor=new Color(0,35*PublicData.layerViewed,255);
+        repaint();
+    }
 
+    @Override
+    public void mouseReleased(MouseEvent e) {
 
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                super.mouseWheelMoved(e);
-                System.out.println(e.getWheelRotation());
-            }
-        });
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+            PublicData.downLayer();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            PublicData.upLayer();
+        }
+        Game.redColor=new Color(255,0,35*PublicData.layerViewed);
+        Game.blueColor=new Color(0,35*PublicData.layerViewed,255);
+        repaint();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 
     public void paint(Graphics g) {
