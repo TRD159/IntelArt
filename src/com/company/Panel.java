@@ -23,6 +23,8 @@ class Panel extends JPanel {
                         }
                     }
                 }
+                Game.redColor=new Color(255,0,35*PublicData.layerViewed);
+                Game.blueColor=new Color(0,35*PublicData.layerViewed,255);
                 repaint();
             }
 

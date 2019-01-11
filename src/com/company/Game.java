@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.util.Scanner;
 
 public class Game {
+    public static Color redColor, blueColor=null;
+
     Player pl1, pl2;
     //This class is going to be the main class for Connect 5 specifically, as I may use this same project to do a few things in my free time.
     Game(String p1, String p2) {
@@ -25,6 +27,7 @@ public class Game {
     }
 
     public static Board b = new Board();
+
 }
 
 

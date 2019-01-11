@@ -12,6 +12,7 @@ class Board {
         board = new char[8][7][8];
         reset();
         board[4][4][4] = 'R';
+        board[6][6][6]='B';
 
         for (char[][] a: board
              ) {
@@ -112,6 +113,7 @@ class Board {
         /*You didn't. I don't think it would have made a difference, but I fixed it anyways.
           Also, for the UI, we could have our program take in image files for the board and pieces and alter the opacity based on which layer the player wants to see. -RK
         */
+        //Would that not be extremely complicated? Do you think we could do that in a week? -VK
 
 
         for(int x=0; x<board.length; x++) {
@@ -126,7 +128,11 @@ class Board {
                     int xa = PublicData.getLayerViewed();
 
                     if (board[xa][y][z] == RED) {
-                        g.setColor(Color.RED);
+                        g.setColor(Game.redColor);
+                        g.fillRect(z * 50, y * 50, 50, 50);
+                    }
+                    if (board[xa][y][z] == BLUE) {
+                        g.setColor(Game.blueColor);
                         g.fillRect(z * 50, y * 50, 50, 50);
                     }
                 }
