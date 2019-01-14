@@ -7,13 +7,13 @@ public class PublicData {
         layerViewed--;
         if(layerViewed < 0)
             layerViewed += 8;
-        System.out.println(layerViewed);
+        //System.out.println(layerViewed);
     }
     public static void downLayer() {
         layerViewed++;
         if(layerViewed > 7)
             layerViewed -= 8;
-        System.out.println(layerViewed);
+        //System.out.println(layerViewed);
     }
 
     public static void right() {

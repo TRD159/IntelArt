@@ -11,6 +11,11 @@ class RandomComputer extends Player {
     }
 
     @Override
+    public Move getMove(Board board, int x, int z) {
+        return null;
+    }
+
+    @Override
     public Player freshCopy() {
         return new RandomComputer(getName(), getLetter());
     }

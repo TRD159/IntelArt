@@ -36,12 +36,13 @@ class Board {
     public boolean makeMove(Move move, char p) { //This returns the location of the piece, not a boolean. It'll make win checks easier later on. -RK
         //ROHAN we have to drop the piece based on gravity...We shouldnt need a depth
         int x = move.getCol();
-        int y = 0;
+        int y = 6;
         int z = move.getDepth();
 
         falseCheck :
         {
-            for (; y < 7; y++) {
+            for (; y >= 0; y--) {
+                System.out.println(y);
                 if (board[z][y][x] == EMPTY) {
                     break falseCheck;
                 }
@@ -50,8 +51,11 @@ class Board {
             return false;
         }
 
+
+
         Location l = new Location(x, y, z);
         setLocation(l, p);
+        System.out.println(z + " " + y + " " + x);
         return true;
     }
 
@@ -103,6 +107,8 @@ class Board {
 
         for(int x = 50; x < 450; x += 50) {
             for(int y = 100;  y < 450; y += 50) {
+                if(x/50 - 1 == PublicData.columnViewed)
+                    g.fillRect(x, y, 50, 50);
                 g.drawRect(x, y, 50, 50);
             }
         }
@@ -114,26 +120,28 @@ class Board {
         //Would that not be extremely complicated? Do you think we could do that in a week? -VK
 
 
-        for(int x=0; x<board.length; x++) {
+        for(int z=0; z<board.length; z++) {
 
 
 
             for (int y=0;y<board[0].length;y++) {
 
+                //System.out.println(y);
+
                 Color gr = Color.white;
                 Color rg = Color.black;
 
-                for(int z=0;z<board[0][0].length;z++) {
+                for(int x=0;x<board[0][0].length;x++) {
 
-                    int xa = PublicData.getLayerViewed();
+                    int za = PublicData.getLayerViewed();
 
-                    if (board[xa][y][z] == RED) {
+                    if (board[za][y][x] == RED) {
                         g.setColor(Game.redColor);
-                        g.fillRect(z* 50, xa* 50, 50, 50);
+                        g.fillRect((x + 1)* 50 + 1, (y + 2)* 50 + 1, 49, 49);
                     }
-                    if (board[xa][y][z] == BLUE) {
+                    if (board[za][y][x] == BLUE) {
                         g.setColor(Game.blueColor);
-                        g.fillRect(z* 50, xa* 50, 50, 50);
+                        g.fillRect((x + 1)* 50  + 1, (y + 2)* 50 + 1, 49, 49);
                     }
                     g.setColor(gr);
                     //g.fillRect(474, (int)(z * (500.0/8) - 1), 27, 65);

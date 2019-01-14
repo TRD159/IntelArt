@@ -1,6 +1,6 @@
 package com.company;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+//import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +29,25 @@ public class Game {
 
     public static Board b = new Board();
 
+    public void moveMaker(int x, int z) {
+        //System.out.println("Move made");
+        Move m; char c;
+        m = null;
+        if(pl1.isPlaying()) {
+            c = 'R';
+            m = pl1.getMove(b, x, z);
+        }
+        else {
+            c = 'B';
+            m = pl2.getMove(b, x, z);
+        }
+        if(m != null) {
+            b.makeMove(m, c);
+
+            pl1.setPlaying(!pl1.playing);
+            pl2.setPlaying(!pl2.playing);
+        }
+    }
 
     public void run() {
         Scanner k=new Scanner(System.in);
@@ -53,10 +72,21 @@ public class Game {
             pl1 = new HumanPlayer(p1, 'R');
             pl2 = new HumanPlayer(p1, 'B');
         }
+        pl1.setPlaying(true);
         Frame f = new Frame("Connect 5");
 
-        b.makeMove(pl1.getMove(b),pl1.getLetter());
-        b.makeMove(pl2.getMove(b),pl1.getLetter());
+        while (true) {
+            //b.makeMove(pl1.getMove(b), pl1.getLetter());
+            //b.makeMove(pl2.getMove(b), pl1.getLetter());
+        }
+    }
+
+    public Player getPl1() {
+        return pl1;
+    }
+
+    public Player getPl2() {
+        return pl2;
     }
 }
 

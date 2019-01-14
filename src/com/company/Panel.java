@@ -59,11 +59,22 @@ class Panel extends JPanel implements MouseListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+        if(e.getKeyCode() == KeyEvent.VK_UP) {
             PublicData.downLayer();
         }
-        else if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+        else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
             PublicData.upLayer();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+            PublicData.left();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            PublicData.right();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+            //System.out.println("Move sent");
+            Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
+            repaint();
         }
         Game.redColor=new Color(255,0,35*PublicData.layerViewed);
         Game.blueColor=new Color(0,35*PublicData.layerViewed,255);
