@@ -9,6 +9,7 @@ public class Main {
         //System.out.println("What is your name?");
         //String name=k.next();
         //HumanPlayer hp=new HumanPlayer(name, 'R');
-        new Game();
+        Game g=new Game();
+        g.run();
     }
 }

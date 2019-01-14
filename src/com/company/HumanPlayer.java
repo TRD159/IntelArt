@@ -10,7 +10,6 @@ class HumanPlayer extends Player {
     @Override
     public Move getMove(Board board) {
         Scanner s = new Scanner(System.in);
-
         int z, x;
         while(true) {
             System.out.println("Where will you drop your piece?\nEnter the row and column of the space where you will move.");

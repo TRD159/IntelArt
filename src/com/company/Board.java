@@ -34,6 +34,7 @@ class Board {
     }
 
     public boolean makeMove(Move move, char p) { //This returns the location of the piece, not a boolean. It'll make win checks easier later on. -RK
+        //ROHAN we have to drop the piece based on gravity...We shouldnt need a depth
         int x = move.getCol();
         int y = 0;
         int z = move.getDepth();
@@ -128,11 +129,11 @@ class Board {
 
                     if (board[xa][y][z] == RED) {
                         g.setColor(Game.redColor);
-                        g.fillRect(z * 50, y * 50, 50, 50);
+                        g.fillRect(z* 50, xa* 50, 50, 50);
                     }
                     if (board[xa][y][z] == BLUE) {
                         g.setColor(Game.blueColor);
-                        g.fillRect(z * 50, y * 50, 50, 50);
+                        g.fillRect(z* 50, xa* 50, 50, 50);
                     }
                     g.setColor(gr);
                     //g.fillRect(474, (int)(z * (500.0/8) - 1), 27, 65);
