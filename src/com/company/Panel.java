@@ -1,6 +1,8 @@
 package com.company;
 
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -73,8 +75,13 @@ class Panel extends JPanel implements MouseListener, KeyListener {
         }
         else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             //System.out.println("Move sent");
+
             Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
             repaint();
+            if(Main.getG().getAIMove()!=null) {
+                System.out.println("get Depth " +Main.getG().getAIMove().getDepth()+"get Col"+Main.getG().getAIMove().getCol() );
+                Main.getG().moveMaker(Main.getG().getAIMove().getCol(),PublicData.layerViewed);
+            }
         }
         Game.redColor=new Color(255,0,35*PublicData.layerViewed);
         Game.blueColor=new Color(0,35*PublicData.layerViewed,255);

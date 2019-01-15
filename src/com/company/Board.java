@@ -34,7 +34,6 @@ class Board {
     }
 
     public boolean makeMove(Move move, char p) { //This returns the location of the piece, not a boolean. It'll make win checks easier later on. -RK
-        //ROHAN we have to drop the piece based on gravity...We shouldnt need a depth
         int x = move.getCol();
         int y = 6;
         int z = move.getDepth();

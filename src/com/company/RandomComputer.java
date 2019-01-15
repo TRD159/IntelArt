@@ -7,7 +7,7 @@ class RandomComputer extends Player {
     }
     @Override
     public Move getMove(Board board) {
-        return null;
+        return new Move((int)(Math.random()*8)+1, (int)(Math.random()*8)+1);
     }
 
     @Override

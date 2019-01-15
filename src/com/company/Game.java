@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Game {
     public static Color redColor, blueColor=null;
-
+    static Move AIMove=null;
     Player pl1, pl2;
     //This class is going to be the main class for Connect 5 specifically, as I may use this same project to do a few things in my free time.
     Game(String p1, String p2) {
@@ -28,6 +28,10 @@ public class Game {
     }
 
     public static Board b = new Board();
+
+    public static Move getAIMove() {
+        return AIMove;
+    }
 
     public void moveMaker(int x, int z) {
         //System.out.println("Move made");
@@ -74,10 +78,11 @@ public class Game {
         }
         pl1.setPlaying(true);
         Frame f = new Frame("Connect 5");
-
-        while (true) {
-            //b.makeMove(pl1.getMove(b), pl1.getLetter());
-            //b.makeMove(pl2.getMove(b), pl1.getLetter());
+        if(pl1 instanceof RandomComputer) {
+            AIMove=pl1.getMove(b);
+        }
+        if(pl2 instanceof RandomComputer) {
+            AIMove=pl2.getMove(b);
         }
     }
 
