@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Game {
     public static Color redColor, blueColor=null;
     static Move AIMove=null;
-    Player pl1, pl2;
+    static Player pl1, pl2;
     //This class is going to be the main class for Connect 5 specifically, as I may use this same project to do a few things in my free time.
     Game(String p1, String p2) {
         pl1 = new HumanPlayer(p1, 'R');
@@ -42,6 +42,10 @@ public class Game {
                 c = 'R';
                 m = pl1.getMove(b, x, z);
             }
+            else if(Game.pl1 instanceof RandomComputer&&Game.pl2 instanceof RandomComputer) {
+                c='R';
+                m=pl1.getMove(b);
+            }
             else {
                 c='R';
                 m=pl1.getMove(b,x,z);
@@ -52,6 +56,10 @@ public class Game {
             if(!(pl2 instanceof RandomComputer)) {
                 c = 'B';
                 m = pl2.getMove(b, x, z);
+            }
+            else if(Game.pl1 instanceof RandomComputer&&Game.pl2 instanceof RandomComputer) {
+                c='B';
+                m=pl2.getMove(b);
             }
             else {
                     c='B';

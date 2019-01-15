@@ -7,6 +7,7 @@ class Board {
     public static final int X_SIZE=8,Y_SIZE=7, Z_SIZE = 8;
     private char[][][] board;
     private char winner;
+    long noOneHasWon=0;
     static boolean fullView=false;
 
     public Board() {
@@ -151,7 +152,11 @@ class Board {
                     //g.fillRect(475, (int)(z * (500.0/8)), 25, 63);
                     g.fillRect((int)(z * (500.0/8)), 0, 63, 25);
                 }
+                if(Game.pl1 instanceof RandomComputer&&Game.pl2 instanceof RandomComputer) {
+                    Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
+                    draw(g);
 
+                }
 
             }
         }
