@@ -38,12 +38,26 @@ public class Game {
         Move m; char c;
         m = null;
         if(pl1.isPlaying()) {
-            c = 'R';
-            m = pl1.getMove(b, x, z);
+            if(!(pl1 instanceof RandomComputer)) {
+                c = 'R';
+                m = pl1.getMove(b, x, z);
+            }
+            else {
+                c='R';
+                m=pl1.getMove(b,x,z);
+                AIMove=m;
+            }
         }
         else {
-            c = 'B';
-            m = pl2.getMove(b, x, z);
+            if(!(pl2 instanceof RandomComputer)) {
+                c = 'B';
+                m = pl2.getMove(b, x, z);
+            }
+            else {
+                    c='B';
+                    m=pl2.getMove(b,x,z);
+                    AIMove=m;
+            }
         }
         if(m != null) {
             b.makeMove(m, c);
@@ -78,12 +92,6 @@ public class Game {
         }
         pl1.setPlaying(true);
         Frame f = new Frame("Connect 5");
-        if(pl1 instanceof RandomComputer) {
-            AIMove=pl1.getMove(b);
-        }
-        if(pl2 instanceof RandomComputer) {
-            AIMove=pl2.getMove(b);
-        }
     }
 
     public Player getPl1() {

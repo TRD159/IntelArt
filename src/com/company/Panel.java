@@ -79,8 +79,14 @@ class Panel extends JPanel implements MouseListener, KeyListener {
             Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
             repaint();
             if(Main.getG().getAIMove()!=null) {
-                System.out.println("get Depth " +Main.getG().getAIMove().getDepth()+"get Col"+Main.getG().getAIMove().getCol() );
-                Main.getG().moveMaker(Main.getG().getAIMove().getCol(),PublicData.layerViewed);
+                Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
+                System.out.println("AI MovedV");
+                repaint();
+            }
+        }
+        else if(e.getKeyChar()== 'F'||e.getKeyChar()=='F') {
+            for(int x=0;x< 8;x++) {
+
             }
         }
         Game.redColor=new Color(255,0,35*PublicData.layerViewed);

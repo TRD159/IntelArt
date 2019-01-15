@@ -7,6 +7,7 @@ class Board {
     public static final int X_SIZE=8,Y_SIZE=7, Z_SIZE = 8;
     private char[][][] board;
     private char winner;
+    static boolean fullView=false;
 
     public Board() {
         board = new char[8][7][8];
