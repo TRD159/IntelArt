@@ -76,13 +76,21 @@ class Panel extends JPanel implements MouseListener, KeyListener {
         else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             //System.out.println("Move sent");
 
-            Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
-            repaint();
-            if(Main.getG().getAIMove()!=null) {
+
+            if(!(Main.getG().b.isFull(new Move(PublicData.columnViewed,PublicData.layerViewed)))) {
                 Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
-                System.out.println("AI MovedV");
+            }
+            repaint();
+            if(Main.getG().getPl2() instanceof RandomComputer||Main.getG().getPl1() instanceof RandomComputer ) {
+                if(!(Main.getG().b.isFull(new Move(PublicData.columnViewed,PublicData.layerViewed)))) {
+                    Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
+                }
+                System.out.println("AI Moved");
                 repaint();
             }
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
         }
         else if(e.getKeyChar()== 'F'||e.getKeyChar()=='F') {
             for(int x=0;x< 8;x++) {
