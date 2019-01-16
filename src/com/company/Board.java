@@ -72,9 +72,34 @@ class Board {
         return board[z][y][x];
     }
 
-
+//????????????????????????????????????????????????????????HELP MEEEEEEEEE
     public char getWinner(){
+        for (int x = 0; x < X_SIZE; x++) {
+            for(int y = 0; y < Y_SIZE; y++) {
+                for(int z = 0; z < Z_SIZE; z++) {
+                    if(board[x][y][z]==RED) {
+                        if((x<X_SIZE-5){
+                            if(board[x++][y][z]==RED) {
+                                // NOT SURE WHICH METHOD GOES HERE
+                                horizontalCheck(new Location(x,y,z));
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return winner;
+    }
+    public boolean diagonalCheck(Location l) {
+
+    }
+
+    public boolean verticalCheck(Location l) {
+
+    }
+
+    public boolean horizontalCheck(Location l) {
+
     }
 
     public boolean isFull(Move m) {
