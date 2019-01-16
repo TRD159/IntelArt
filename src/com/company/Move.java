@@ -1,24 +1,24 @@
 package com.company;
 
 class Move {
-    private int depth;
-    private int col;
+    private int z;
+    private int x;
 
     public Move(int col, int depth) {
-        this.col=col;
-        this.depth=depth;
+        this.x =col;
+        this.z =depth;
     }
 
-    public int getDepth() {
-        return depth;
+    public int getZ() {
+        return z;
     }
 
-    public int getCol() {
-        return col;
+    public int getX() {
+        return x;
     }
 
     @Override
     public String toString() {
-        return "(" + depth + ",  " + col + ")";
+        return "(" + z + ",  " + x + ")";
     }
 }

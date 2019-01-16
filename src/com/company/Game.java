@@ -68,10 +68,27 @@ public class Game {
             }
         }
         if(m != null) {
-            b.makeMove(m, c);
+            Location l = b.makeMove(m, c);
+
+            Board.moves.add(l);
 
             pl1.setPlaying(!pl1.playing);
             pl2.setPlaying(!pl2.playing);
+        }
+
+        for(int zl = 0; zl < 4; zl++) {
+            for(int yl = 0; yl < 3; yl++) {
+                for(int xl = 0; xl < 4; xl++) {
+                    
+                }
+            }
+        }
+
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+
+        } finally {
         }
     }
 

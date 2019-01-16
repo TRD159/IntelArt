@@ -1,6 +1,7 @@
 package com.company;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 class Board {
     public static final char EMPTY = '-', RED = 'R', BLUE = 'B', PLAYING = '-', TIE = 'T';
@@ -9,6 +10,7 @@ class Board {
     private char winner;
     long noOneHasWon=0;
     static boolean fullView=false;
+    static ArrayList<Location> moves = new ArrayList<>();
 
     public Board() {
         board = new char[8][7][8];
@@ -35,29 +37,31 @@ class Board {
         this.board = board;
     }
 
-    public boolean makeMove(Move move, char p) { //This returns the location of the piece, not a boolean. It'll make win checks easier later on. -RK
-        int x = move.getCol();
+    public Location makeMove(Move move, char p) { //This returns the location of the piece, not a boolean. It'll make win checks easier later on. -RK
+        int x = move.getX();
         int y = 6;
-        int z = move.getDepth();
+        int z = move.getZ();
+
+        Location l = new Location(x, y, z);
 
         falseCheck :
         {
             for (; y >= 0; y--) {
-                System.out.println(y);
+                //System.out.println(y);
                 if (board[z][y][x] == EMPTY) {
                     break falseCheck;
                 }
             }
 
-            return false;
+            return null;
         }
 
 
 
-        Location l = new Location(x, y, z);
+        l = new Location(x, y, z);
         setLocation(l, p);
-        System.out.println(z + " " + y + " " + x);
-        return true;
+        //System.out.println(z + " " + y + " " + x);
+        return l;
     }
 
     public void setLocation(Location l, char p) {
@@ -72,8 +76,9 @@ class Board {
         return board[z][y][x];
     }
 
+
 //????????????????????????????????????????????????????????HELP MEEEEEEEEE
-    public char getWinner(){
+   /* public char getWinner(){
         for (int x = 0; x < X_SIZE; x++) {
             for(int y = 0; y < Y_SIZE; y++) {
                 for(int z = 0; z < Z_SIZE; z++) {
@@ -88,7 +93,8 @@ class Board {
                 }
             }
         }
-        return winner;
+        //return winner;
+
     }
     public boolean diagonalCheck(Location l) {
 
@@ -100,13 +106,13 @@ class Board {
 
     public boolean horizontalCheck(Location l) {
 
-    }
+    }*/
 
     public boolean isFull(Move m) {
         /*Firstly, the way you access the array is wrong. You're going YXZ, but it's supposed to be ZYX.
         * Also, 0 is the topmost
         * */
-        if(board[m.getDepth()][0][m.getCol()]==EMPTY) {//Not sure if row 6 is topmost or row 0-VK
+        if(board[m.getZ()][0][m.getX()]==EMPTY) {//Not sure if row 6 is topmost or row 0-VK
             return false;
         }
         return true;
@@ -185,5 +191,6 @@ class Board {
 
             }
         }
+
     }
 }
