@@ -79,11 +79,11 @@ class Board {
 
 //????????????????????????????????????????????????????????HELP MEEEEEEEEE
    public char getWinner(){
-        for (int x = 0; x < X_SIZE; x++) {
+        for (int z = 0; z < Z_SIZE; z++) {
             for(int y = 0; y < Y_SIZE; y++) {
-                for(int z = 0; z < Z_SIZE; z++) {
-                    if(board[x][y][z]==RED) {
-                        if(winCheck(new Location(x,y,z),RED,1)) {
+                for(int x = 0; x< X_SIZE; x++) {
+                    if(board[z][y][x]==RED) {
+                        if(checkXP(new Location(x,y,z),RED,0)&&(checkXPYM(new Location(x,y,z),RED,0)||checkXYP(new Location(x,y,z),RED,0)||checkZP(new Location(x,y,z),RED,0)||checkYP(new Location(x,y,z),RED,0))) {
                             winner=RED;
                             System.out.println("j ksdhfjk ashdfjhasbyhxlj fhlasdk hdsglfkahsdgvbfh asgdvkjf");
                         }
