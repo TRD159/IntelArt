@@ -3,6 +3,8 @@ package com.company;
 
 //import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -87,6 +89,10 @@ class Panel extends JPanel implements MouseListener, KeyListener {
                 }
                 System.out.println("AI Moved");
                 repaint();
+            }
+            if(!(Main.getG().b.getWinner()==Main.getG().b.PLAYING)) {
+                System.out.println("HEy someone WON");
+                System.exit(0);
             }
         }
         else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {

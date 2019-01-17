@@ -7,7 +7,7 @@ class Board {
     public static final char EMPTY = '-', RED = 'R', BLUE = 'B', PLAYING = '-', TIE = 'T';
     public static final int X_SIZE=8,Y_SIZE=7, Z_SIZE = 8;
     private char[][][] board;
-    private char winner;
+    private char winner=' ';
     long noOneHasWon=0;
     static boolean fullView=false;
     static ArrayList<Location> moves = new ArrayList<>();
@@ -78,34 +78,62 @@ class Board {
 
 
 //????????????????????????????????????????????????????????HELP MEEEEEEEEE
-   /* public char getWinner(){
+   public char getWinner(){
         for (int x = 0; x < X_SIZE; x++) {
             for(int y = 0; y < Y_SIZE; y++) {
                 for(int z = 0; z < Z_SIZE; z++) {
                     if(board[x][y][z]==RED) {
-                        if((x<X_SIZE-5){
-                            if(board[x++][y][z]==RED) {
-                                // NOT SURE WHICH METHOD GOES HERE
-                                horizontalCheck(new Location(x,y,z));
-                            }
+                        if(winCheck(new Location(x,y,z),RED,1)) {
+                            winner=RED;
+                            System.out.println("j ksdhfjk ashdfjhasbyhxlj fhlasdk hdsglfkahsdgvbfh asgdvkjf");
                         }
                     }
                 }
             }
         }
-        //return winner;
+        return winner;
 
     }
-    public boolean diagonalCheck(Location l) {
 
+    public boolean winCheck(Location l, char player, int y) {
+        //X-Check
+
+        if (l.x<X_SIZE&&l.x>0&&y<5) {
+            if(board[l.x][l.y][l.z]==player) {
+                System.out.println("Yeet");
+                y++;
+                winCheck(new Location(++l.x, l.y, l.z), player, y);
+                winCheck(new Location(--l.x, l.y, l.z), player, y);
+            }
+        }
+        if(y==5) {
+            return true;
+        }
+        return false;
+
+    }
+    /*public boolean diagonalCheck(Location l) {
+        return true;
     }
 
     public boolean verticalCheck(Location l) {
-
+        return true;
     }
 
-    public boolean horizontalCheck(Location l) {
-
+    public boolean horizontalCheck(Location l, int x, char player, int y) {
+        if(x==X_SIZE) {
+            if(y==4) {
+                return true;
+            }
+            return false;
+        }
+        if(board[x++][l.y][l.z]==player) {
+            horizontalCheck(l,x,player,++y);
+        }
+        if(y==4) {
+            return true;
+        }
+        return false;
     }*/
 
     public boolean isFull(Move m) {
