@@ -98,8 +98,8 @@ class Board {
     public boolean winCheck(Location l, char player, int y) {
         //X-Check
 
-        if (l.x<X_SIZE&&l.x>0&&y<5) {
-            if(board[l.x][l.y][l.z]==player) {
+        if (l.x<X_SIZE&&l.x>=0&&y<5) {
+            if(board[l.x][l.y][l.z]==player) { //You ever-living fool! It's ZYX, not XYZ! When will you learn? -RK
                 System.out.println("Yeet");
                 y++;
                 winCheck(new Location(++l.x, l.y, l.z), player, y);
@@ -110,7 +110,98 @@ class Board {
             return true;
         }
         return false;
+    }
 
+    public boolean checkXP(Location l, char player, int x) { //x starts off being 0
+        if(l.x < X_SIZE && x < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkXP(new Location(l.x + 1, l.y, l.z), player, ++x);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+/*
+    public boolean checkXM(Location l, char player, int x) {
+        if(l.x >= 0 && x < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkXM(new Location(l.x - 1, l.y, l.z), player, ++x);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    */
+    public boolean checkYP(Location l, char player, int y) {
+        if(l.y < Y_SIZE && y < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkYP(new Location(l.x, l.y + 1, l.z), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    /*
+    public boolean checkYM(Location l, char player, int y) {
+        if(l.y >= 0 && y < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkYM(new Location(l.x, l.y - 1, l.z), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    */
+    public boolean checkZP(Location l, char player, int z) {
+        if(l.z < Z_SIZE && z < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkZP(new Location(l.x, l.y, l.z + 1), player, ++z);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    /*
+    public boolean checkZM(Location l, char player, int z) {
+        if(l.z >= 0 && z < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkZM(new Location(l.x, l.y, l.z - 1), player, ++z);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    */
+    public boolean checkXYP(Location l, char player, int c) {
+        if(l.x < X_SIZE && l.y < Y_SIZE && c < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkXYP(cL(l, 1, 1, 0), player, ++c);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkXPYM(Location l, char player, int c) {
+        if(l.x < X_SIZE && l.y >= 0 && c < 5) {
+            if(board[l.z][l.y][l.x] == player) {
+                return checkXPYM(cL(l, 1,-1,0), player, ++c);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    Location cL(Location l, int x, int y, int z) {
+        return new Location(l.x + x, l.y + y, l.z + z);
     }
     /*public boolean diagonalCheck(Location l) {
         return true;
@@ -213,8 +304,7 @@ class Board {
                 }
                 if(Game.pl1 instanceof RandomComputer&&Game.pl2 instanceof RandomComputer) {
                     Main.getG().moveMaker(PublicData.columnViewed, PublicData.layerViewed);
-                    draw(g);
-
+                    //Here was an infinite loop that caused the program to crash everytime. Thanks, Varun!
                 }
 
             }

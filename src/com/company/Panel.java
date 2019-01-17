@@ -1,10 +1,5 @@
 package com.company;
 
-
-//import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

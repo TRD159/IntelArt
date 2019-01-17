@@ -3,9 +3,12 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
-class Frame extends JFrame {
+class Frame extends JFrame implements Runnable{
+    Thread t;
     Frame(String title) throws HeadlessException {
         super(title);
+
+        t = new Thread(this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -22,6 +25,15 @@ class Frame extends JFrame {
         pack();
 
         setVisible(true);
+
+        t.start();
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            repaint();
+        }
     }
 }
 
