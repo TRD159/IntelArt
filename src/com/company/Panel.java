@@ -86,7 +86,7 @@ class Panel extends JPanel implements MouseListener, KeyListener {
                 repaint();
             }
             if(!(Main.getG().b.getWinner()==Main.getG().b.PLAYING)) {
-                System.out.println("HEy someone WON");
+                System.out.println("HEy someone WON"+Main.getG().b.getWinner());
                 System.exit(0);
             }
         }
