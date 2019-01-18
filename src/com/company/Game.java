@@ -116,11 +116,6 @@ public class Game {
             pl2 = new HumanPlayer(p1, 'B');
         }
         pl1.setPlaying(true);
-
-        Main.getG().b.getBoard()[0][0][0]='R';
-        Main.getG().b.getBoard()[1][1][1]='R';
-        Main.getG().b.getBoard()[2][2][2]='R';
-        Main.getG().b.getBoard()[3][3][3]='R';
         Frame f = new Frame("Connect 5");
     }
 
