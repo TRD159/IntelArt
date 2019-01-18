@@ -496,10 +496,12 @@ class Board {
 
                     if (board[za][y][x] == RED) {
                         g.setColor(Game.redColor);
+                        //g.setColor(new Location(x, y, z).getR());
                         g.fillRect((x + 1)* 50 + 1, (y + 2)* 50 + 1, 49, 49);
                     }
                     if (board[za][y][x] == BLUE) {
                         g.setColor(Game.blueColor);
+                        //g.setColor(new Location(x, y, z).getB());
                         g.fillRect((x + 1)* 50  + 1, (y + 2)* 50 + 1, 49, 49);
                     }
                     g.setColor(gr);
