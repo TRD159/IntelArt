@@ -70,7 +70,7 @@ class Panel extends JPanel implements MouseListener, KeyListener {
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
             PublicData.right();
         }
-        else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+        else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             //System.out.println("Move sent");
 
 

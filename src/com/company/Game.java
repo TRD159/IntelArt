@@ -98,6 +98,7 @@ public class Game {
         String p1=k.next();
         System.out.println("Enter Player 2's Name or write AI to choose AI.");
         String p2=k.next();
+        //k.nextLine();
         if(p1.equals("AI")&&p2.equals("AI")) {
             pl1 = new RandomComputer("Com 1", 'R');
             pl2 = new RandomComputer("Com 2", 'B');
