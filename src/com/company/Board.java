@@ -83,9 +83,19 @@ class Board {
             for(int y = 0; y < Y_SIZE; y++) {
                 for(int x = 0; x< X_SIZE; x++) {
                     if(board[z][y][x]==RED) {
-                        if(checkXP(new Location(x,y,z),RED,0)||(checkXPYM(new Location(x,y,z),RED,0)||checkXYP(new Location(x,y,z),RED,0)||checkZP(new Location(x,y,z),RED,0)||checkYP(new Location(x,y,z),RED,0))) {
+                        if(checkXP(new Location(x,y,z),RED,0)||checkYP(new Location(x,y,z),RED,0)||checkZP(new Location(x,y,z),RED,0)||checkXM(new Location(x,y,z),RED,0)||checkYM(new Location(x,y,z),RED,0)||checkZM(new Location(x,y,z),RED,0)||checkYPZP(new Location(x,y,z),RED,0)||
+                                checkYPZM(new Location(x,y,z),RED,0)||checkZPXP(new Location(x,y,z),RED,0)||checkZPXM(new Location(x,y,z),RED,0)||checkYPXP(new Location(x,y,z),RED,0)||checkYMXP(new Location(x,y,z),RED,0)||checkYMZP(new Location(x,y,z),RED,0)||checkYMZM(new Location(x,y,z),RED,0)
+                        ||checkYMZPXP(new Location(x,y,z),RED,0)||checkYPZMXP(new Location(x,y,z),RED,0)||checkYPZPXM(new Location(x,y,z),RED,0)) {
                             winner=RED;
-                            System.out.println("j ksdhfjk ashdfjhasbyhxlj fhlasdk hdsglfkahsdgvbfh asgdvkjf");
+                            System.out.println("RED WINS");
+                        }
+                    }
+                    if(board[z][y][x]==BLUE) {
+                        if(checkXP(new Location(x,y,z),BLUE,0)||checkYP(new Location(x,y,z),BLUE,0)||checkZP(new Location(x,y,z),BLUE,0)||checkXM(new Location(x,y,z),BLUE,0)||checkYM(new Location(x,y,z),BLUE,0)||checkZM(new Location(x,y,z),BLUE,0)||checkYPZP(new Location(x,y,z),BLUE,0)||
+                                checkYPZM(new Location(x,y,z),BLUE,0)||checkZPXP(new Location(x,y,z),BLUE,0)||checkZPXM(new Location(x,y,z),BLUE,0)||checkYPXP(new Location(x,y,z),BLUE,0)||checkYMXP(new Location(x,y,z),BLUE,0)||checkYMZP(new Location(x,y,z),BLUE,0)||checkYMZM(new Location(x,y,z),BLUE,0)
+                        ||checkYMZPXP(new Location(x,y,z),BLUE,0)||checkYPZMXP(new Location(x,y,z),BLUE,0)||checkYPZPXM(new Location(x,y,z),BLUE,0)) {
+                            winner=BLUE;
+                            System.out.println("BLUE WINS");
                         }
                     }
                 }
@@ -94,31 +104,13 @@ class Board {
         return winner;
 
     }
-/*
-    public boolean winCheck(Location l, char player, int y) {
-        //X-Check
-
-        if (l.x<X_SIZE&&l.x>=0&&y<5) {
-            if(board[l.x][l.y][l.z]==player) { //You ever-living fool! It's ZYX, not XYZ! When will you learn? -RK
-                System.out.println("Yeet");
-                y++;
-                winCheck(new Location(++l.x, l.y, l.z), player, y);
-                winCheck(new Location(--l.x, l.y, l.z), player, y);
-            }
-        }
-        if(y==5) {
-            return true;
-        }
-        return false;
-    }*/
-
     public boolean checkXP(Location l, char player, int x) { //x starts off being 0
         if(l.x==X_SIZE) {
             return false;
         }
         if(l.x < X_SIZE && x < 5) {
             if(board[l.z][l.y][l.x] == player) {
-                return checkXP(new Location(l.x + 1, l.y, l.z), player, ++x);
+                return checkXP(cL(l,1, 0, 0), player, ++x);
             } else {
                 return false;
             }
@@ -129,25 +121,231 @@ class Board {
         }
         return false;
     }
-/*
     public boolean checkXM(Location l, char player, int x) {
+        if(l.x==0) {
+            return false;
+        }
         if(l.x >= 0 && x < 5) {
             if(board[l.z][l.y][l.x] == player) {
-                return checkXM(new Location(l.x - 1, l.y, l.z), player, ++x);
+                return checkXM(cL(l,- 1, 0, 0), player, ++x);
             } else {
                 return false;
             }
         }
-        return true;
+        if(x==5) {
+            return true;
+        }
+        return false;
     }
-    */
     public boolean checkYP(Location l, char player, int y) {
+        if (l.y == Y_SIZE) {
+            return false;
+        }
+        if (l.y < Y_SIZE && y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYP(cL(l,0, 1, 0), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkYPZP(Location l, char player, int y) {
+        if (l.y == Y_SIZE||l.z==Z_SIZE) {
+            return false;
+        }
+        if (l.y < Y_SIZE && l.z <Z_SIZE&& y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYPZP(cL(l,0, 1, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkYMZP(Location l, char player, int y) {
+        if (l.y == 0||l.z==Z_SIZE) {
+            return false;
+        }
+        if (l.y > 0 && l.z <Z_SIZE&& y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYMZP(cL(l,0, -1, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkYMZM(Location l, char player, int y) {
+        if (l.y == 0||l.z==0) {
+            return false;
+        }
+        if (l.y >=0 && l.z>=0&& y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYMZM(cL(l,0, -1, -1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean checkYPZM(Location l, char player, int y) {
+        if (l.y == Y_SIZE||l.z == 0) {
+            return false;
+        }
+        if (l.y < Y_SIZE &&l.z>=0 &&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYPZM(cL(l,0, 1, -1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkYMZPXP(Location l, char player, int y) {
+        if (l.y == 0||l.z ==Z_SIZE||l.x==X_SIZE) {
+            return false;
+        }
+        if (l.y >=0 &&l.z<Z_SIZE &&l.x<X_SIZE&&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYMZPXP(cL(l,1, -1, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkYPZMXP(Location l, char player, int y) {
+        if (l.y == Y_SIZE||l.z == 0||l.x==X_SIZE) {
+            return false;
+        }
+        if (l.y < Y_SIZE &&l.z>=0 &&l.x<X_SIZE&&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYPZMXP(cL(l,1, 1, -1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkYPZPXM(Location l, char player, int y) {
+        if (l.y == Y_SIZE||l.z == Z_SIZE||l.x==0) {
+            return false;
+        }
+        if (l.y < Y_SIZE &&l.z<Z_SIZE &&l.x>=0&&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYPZPXM(cL(l,-1, 1, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkZPXP(Location l, char player, int y) {
+        if (l.z == Z_SIZE||l.x==X_SIZE) {
+            return false;
+        }
+        if (l.z < Z_SIZE &&l.x<X_SIZE&& y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkZPXP(cL(l,1, 0, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkZPXM(Location l, char player, int y) {
+        if (l.x ==0||l.z==Z_SIZE) {
+            return false;
+        }
+        if (l.x >=0 &&l.z<Z_SIZE &&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkZPXM(cL(l,-1, 0, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkYPXP(Location l, char player, int y) {
+        if (l.y == Y_SIZE||l.x==X_SIZE) {
+            return false;
+        }
+        if (l.y < Y_SIZE &&l.x<X_SIZE &&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYPXP(cL(l,1, 1, 0), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean checkYMXP(Location l, char player, int y) {
+        if (l.y == 0||l.x==X_SIZE) {
+            return false;
+        }
+        if (l.y >=0 &&l.x<X_SIZE&& y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYMXP(cL(l,1, -1, 0), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public boolean checkYM(Location l, char player, int y) {
         if(l.y==Y_SIZE) {
             return false;
         }
-        if(l.y < Y_SIZE && y < 5) {
+        if(l.y >= 0 && y < 5) {
             if(board[l.z][l.y][l.x] == player) {
-                return checkYP(new Location(l.x, l.y + 1, l.z), player, ++y);
+                return checkYM(cL(l,0,-1,0), player, ++y);
             } else {
                 return false;
             }
@@ -155,20 +353,9 @@ class Board {
         if(y==5) {
             return true;
         }
+
         return false;
     }
-    /*
-    public boolean checkYM(Location l, char player, int y) {
-        if(l.y >= 0 && y < 5) {
-            if(board[l.z][l.y][l.x] == player) {
-                return checkYM(new Location(l.x, l.y - 1, l.z), player, ++y);
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-    */
     public boolean checkZP(Location l, char player, int z) {
         if(l.z==Z_SIZE) {
             return false;
@@ -186,70 +373,23 @@ class Board {
         }
         return false;
     }
-    /*public boolean checkZM(Location l, char player, int z) {
-        if(l.z==Z_SIZE) {
-            return false;
-        }
-        if(l.z < Z_SIZE && z < 5) {
-            if(board[l.z][l.y][l.x] == player) {
-                return checkZP(cL(l,0,0,-1), player, ++z);
-            } else {
-                return false;
-            }
-        }
-
-        if(z==5) {
-            return true;
-        }
-        return false;
-    }*/
-    /*
     public boolean checkZM(Location l, char player, int z) {
-        if(l.z >= 0 && z < 5) {
-            if(board[l.z][l.y][l.x] == player) {
-                return checkZM(new Location(l.x, l.y, l.z - 1), player, ++z);
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-    */
-    public boolean checkXYP(Location l, char player, int c) {
-        if(l.x==X_SIZE) {
+        if (l.z == 0) {
             return false;
         }
-        if(l.x < X_SIZE && l.y < Y_SIZE && c < 5) {
-            if(board[l.z][l.y][l.x] == player) {
-                return checkXYP(cL(l, 1, 1, 0), player, ++c);
+        if (l.z >= 0 && z < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkZM(cL(l, 0, 0, -1), player, ++z);
             } else {
                 return false;
             }
         }
-        if(c==5) {
+
+        if (z == 5) {
             return true;
         }
         return false;
     }
-
-    public boolean checkXPYM(Location l, char player, int c) {
-        if(l.x==X_SIZE) {
-            return false;
-        }
-        if(l.x < X_SIZE && l.y >= 0 && c < 5) {
-            if(board[l.z][l.y][l.x] == player) {
-                return checkXPYM(cL(l, 1,-1,0), player, ++c);
-            } else {
-                return false;
-            }
-        }
-        if(c==5) {
-            System.out.println("AYYYXPYM");
-            return true;
-        }
-        return false;
-    }
-
     Location cL(Location l, int x, int y, int z) {
         return new Location(l.x + x, l.y + y, l.z + z);
     }
