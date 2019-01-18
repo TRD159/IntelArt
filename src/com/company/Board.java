@@ -85,7 +85,8 @@ class Board {
                     if(board[z][y][x]==RED) {
                         if(checkXP(new Location(x,y,z),RED,0)||checkYP(new Location(x,y,z),RED,0)||checkZP(new Location(x,y,z),RED,0)||checkXM(new Location(x,y,z),RED,0)||checkYM(new Location(x,y,z),RED,0)||checkZM(new Location(x,y,z),RED,0)||checkYPZP(new Location(x,y,z),RED,0)||
                                 checkYPZM(new Location(x,y,z),RED,0)||checkZPXP(new Location(x,y,z),RED,0)||checkZPXM(new Location(x,y,z),RED,0)||checkYPXP(new Location(x,y,z),RED,0)||checkYMXP(new Location(x,y,z),RED,0)||checkYMZP(new Location(x,y,z),RED,0)||checkYMZM(new Location(x,y,z),RED,0)
-                        ||checkYMZPXP(new Location(x,y,z),RED,0)||checkYPZMXP(new Location(x,y,z),RED,0)||checkYPZPXM(new Location(x,y,z),RED,0)) {
+                        ||checkYMZPXP(new Location(x,y,z),RED,0)||checkYPZMXP(new Location(x,y,z),RED,0)
+                                ||checkYPZPXM(new Location(x,y,z),RED,0)||checkYPZPXP(new Location(x,y,z),RED,0)) {
                             winner=RED;
                             System.out.println("RED WINS");
                         }
@@ -93,7 +94,8 @@ class Board {
                     if(board[z][y][x]==BLUE) {
                         if(checkXP(new Location(x,y,z),BLUE,0)||checkYP(new Location(x,y,z),BLUE,0)||checkZP(new Location(x,y,z),BLUE,0)||checkXM(new Location(x,y,z),BLUE,0)||checkYM(new Location(x,y,z),BLUE,0)||checkZM(new Location(x,y,z),BLUE,0)||checkYPZP(new Location(x,y,z),BLUE,0)||
                                 checkYPZM(new Location(x,y,z),BLUE,0)||checkZPXP(new Location(x,y,z),BLUE,0)||checkZPXM(new Location(x,y,z),BLUE,0)||checkYPXP(new Location(x,y,z),BLUE,0)||checkYMXP(new Location(x,y,z),BLUE,0)||checkYMZP(new Location(x,y,z),BLUE,0)||checkYMZM(new Location(x,y,z),BLUE,0)
-                        ||checkYMZPXP(new Location(x,y,z),BLUE,0)||checkYPZMXP(new Location(x,y,z),BLUE,0)||checkYPZPXM(new Location(x,y,z),BLUE,0)) {
+                        ||checkYMZPXP(new Location(x,y,z),BLUE,0)||checkYPZMXP(new Location(x,y,z),BLUE,0)
+                                ||checkYPZPXM(new Location(x,y,z),BLUE,0)||checkYPZPXP(new Location(x,y,z),BLUE,0)) {
                             winner=BLUE;
                             System.out.println("BLUE WINS");
                         }
@@ -259,6 +261,22 @@ class Board {
         if (l.y < Y_SIZE &&l.z<Z_SIZE &&l.x>=0&&y < 5) {
             if (board[l.z][l.y][l.x] == player) {
                 return checkYPZPXM(cL(l,-1, 1, 1), player, ++y);
+            } else {
+                return false;
+            }
+        }
+        if (y == 5) {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkYPZPXP(Location l, char player, int y) {
+        if (l.y== Y_SIZE||l.z == Z_SIZE||l.x == X_SIZE) {
+            return false;
+        }
+        if (l.y < Y_SIZE &&l.z<Z_SIZE &&l.x<X_SIZE&&y < 5) {
+            if (board[l.z][l.y][l.x] == player) {
+                return checkYPZPXP(cL(l,1, 1, 1), player, ++y);
             } else {
                 return false;
             }
