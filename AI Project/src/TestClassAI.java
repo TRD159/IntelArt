@@ -1,0 +1,3 @@
+public class TestClassAI {
+    //I think that this will work? I hope so...
+}
